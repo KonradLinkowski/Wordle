@@ -79,7 +79,7 @@ function Key({ children, action, className }) {
     <button onClick={() => action(children)} className={clsx(
       className,
       'select-none rounded-md flex justify-center items-center font-mono',
-      'h-7 w-7 text-base',
+      'h-8 w-8 text-lg',
       'sm:h-12 sm:w-12 sm:text-2xl'
     )}>{ children }</button>
   )
