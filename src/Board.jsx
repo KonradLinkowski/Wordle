@@ -33,7 +33,9 @@ const types = {
 function Box({ letter, type, highlight }) {
   return (
     <span className={clsx(
-      'select-none border-2 border-black w-16 h-16 flex justify-center items-center text-5xl',
+      'select-none border-2 border-black flex justify-center items-center ',
+      'w-12 h-12 text-3xl',
+      'sm:w-16 sm:h-16 sm:text-5xl',
       highlight && 'bg-red-100',
       types[type]
     )}>{letter}</span>

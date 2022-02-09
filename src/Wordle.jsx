@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useReducer } from 'react';
 import { Board } from './Board';
 import { Keyboard } from './Keyboard';
 

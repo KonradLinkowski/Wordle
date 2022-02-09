@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { useEffect } from 'react'
 import { MdBackspace, MdSend } from 'react-icons/md'
 
@@ -21,49 +22,65 @@ export function Keyboard({ onKeyPressed, onEnter, onBackspace }) {
     return () => window.removeEventListener('keydown', handlePress)
   }, [onKeyPressed, onEnter, onBackspace])
 
+  const BasicKey = withClassAndAction(Key, onKeyPressed, 'hover:bg-amber-200 bg-amber-300')
+  const EnterKey = withClassAndAction(Key, onEnter, 'hover:bg-green-200 bg-green-300')
+  const BackspaceKey = withClassAndAction(Key, onBackspace, 'hover:bg-blue-200 bg-blue-300')
+
   return (
-    <div className='space-y-2 text-2xl'>
-      <div className='flex space-x-2'>
-        <Key>Q</Key>
-        <Key>W</Key>
-        <Key>E</Key>
-        <Key>R</Key>
-        <Key>T</Key>
-        <Key>Y</Key>
-        <Key>U</Key>
-        <Key>I</Key>
-        <Key>O</Key>
-        <Key>P</Key>
+    <div className='space-y-1 sm:space-y-2'>
+      <div className='flex space-x-1 sm:space-x-2'>
+        <BasicKey>Q</BasicKey>
+        <BasicKey>W</BasicKey>
+        <BasicKey>E</BasicKey>
+        <BasicKey>R</BasicKey>
+        <BasicKey>T</BasicKey>
+        <BasicKey>Y</BasicKey>
+        <BasicKey>U</BasicKey>
+        <BasicKey>I</BasicKey>
+        <BasicKey>O</BasicKey>
+        <BasicKey>P</BasicKey>
       </div>
-      <div className='flex space-x-2 ml-2'>
-        <Key>A</Key>
-        <Key>S</Key>
-        <Key>D</Key>
-        <Key>F</Key>
-        <Key>G</Key>
-        <Key>H</Key>
-        <Key>J</Key>
-        <Key>K</Key>
-        <Key>L</Key>
+      <div className='flex space-x-1 sm:space-x-2 ml-2'>
+        <BasicKey>A</BasicKey>
+        <BasicKey>S</BasicKey>
+        <BasicKey>D</BasicKey>
+        <BasicKey>F</BasicKey>
+        <BasicKey>G</BasicKey>
+        <BasicKey>H</BasicKey>
+        <BasicKey>J</BasicKey>
+        <BasicKey>K</BasicKey>
+        <BasicKey>L</BasicKey>
       </div>
-      <div className='flex space-x-2 ml-6'>
-        <Key>Z</Key>
-        <Key>X</Key>
-        <Key>C</Key>
-        <Key>V</Key>
-        <Key>B</Key>
-        <Key>N</Key>
-        <Key>M</Key>
-        <Key onFunction={onBackspace}><MdBackspace /></Key>
-        <Key onFunction={onEnter}><MdSend /></Key>
+      <div className='flex space-x-1 sm:space-x-2 ml-6'>
+        <BasicKey>Z</BasicKey>
+        <BasicKey>X</BasicKey>
+        <BasicKey>C</BasicKey>
+        <BasicKey>V</BasicKey>
+        <BasicKey>B</BasicKey>
+        <BasicKey>N</BasicKey>
+        <BasicKey>M</BasicKey>
+        <BackspaceKey>
+          <MdBackspace />
+        </BackspaceKey>
+        <EnterKey>
+          <MdSend />
+        </EnterKey>
       </div>
     </div>
   )
+}
 
-  function Key({ children, onFunction }) {
-    const fn = onFunction || onKeyPressed
-    return (
-      <button onClick={() => fn(children)} className='hover:bg-amber-200 bg-amber-300 rounded-md px-4 py-2 h-12 min-w-12'>{ children }</button>
-    )
-  }
+function withClassAndAction(Component, action, className) {
+  return props => (<Component action={action} className={className} { ...props } />)
+}
+
+function Key({ children, action, className }) {
+  return (
+    <button onClick={() => action(children)} className={clsx(
+      className,
+      'select-none rounded-md flex justify-center items-center',
+      'h-7 w-7 text-base',
+      'sm:h-12 sm:w-12 sm:text-2xl'
+    )}>{ children }</button>
+  )
 }
